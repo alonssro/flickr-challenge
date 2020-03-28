@@ -5,7 +5,12 @@ export default class SearchBar extends React.Component {
     searchText: ''
   };
 
-  onFormSubmit() {}
+  onFormSubmit = e => {
+    const { onSubmit } = this.props;
+    const { searchText } = this.state;
+    e.preventDefault();
+    onSubmit(searchText);
+  };
   render() {
     const { searchText } = this.state;
 
