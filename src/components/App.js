@@ -7,9 +7,17 @@ import flickr from '../utils/api';
 export default class App extends Component {
   state = {
     images: [],
+    imagesFeed: [],
     loading: false,
-    aspect: 'grid'
+    aspect: 'grid',
+    isSearch: false
   };
+
+  async componentDidMount() {
+    let { data } = await flickr.get('/');
+    console.log(data);
+    this.setState({ images: data });
+  }
 
   onChangeAspect = async () => {
     const { aspect } = this.state;
@@ -25,7 +33,7 @@ export default class App extends Component {
   };
 
   onSearchSubmit = async text => {
-    this.setState({ loading: true });
+    this.setState({ loading: true, isSearch: true });
     try {
       const { data: images } = await flickr.post('/photos', {
         text
@@ -42,14 +50,14 @@ export default class App extends Component {
   };
 
   render() {
-    const { images, loading, aspect } = this.state;
+    const { images, loading, aspect, isSearch } = this.state;
     return (
       <div className="ui container" style={{ marginTop: '15px' }}>
         <SearchBar onSubmit={this.onSearchSubmit} />
         {images.length !== 0 ? (
-          <ChangeAspect aspect={aspect} onChangeAspect={this.onChangeAspect} />
+          <ChangeAspect aspect={aspect} onChangeAspect={this.onChangeAspect} isSearch={isSearch} />
         ) : null}
-        <ImageList aspect={aspect} images={images} loading={loading} />
+        <ImageList aspect={aspect} images={images} loading={loading} isSearch={isSearch} />
       </div>
     );
   }
