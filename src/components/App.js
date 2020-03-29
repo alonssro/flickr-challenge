@@ -14,8 +14,7 @@ export default class App extends Component {
   };
 
   async componentDidMount() {
-    let { data } = await flickr.get('/');
-    console.log(data);
+    let { data } = await flickr.get('/feed');
     this.setState({ images: data });
   }
 
