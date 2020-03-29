@@ -4,11 +4,11 @@ import '../css/ImageList.css';
 import ImageCard from './ImageCard';
 import Loader from './ImageLoader';
 
-const ImageList = ({ images, loading }) => {
+const ImageList = ({ images, loading, aspect }) => {
   return loading ? (
-    <Loader />
+    <Loader style={{ marginTop: '20px' }} />
   ) : (
-    <div className="image-list">
+    <div className={aspect === 'grid' ? 'image-list-grid' : 'image-list-list'}>
       {images.map(({ farm, server, id, secret, title }) => {
         return (
           <ImageCard farm={farm} server={server} id={id} secret={secret} title={title} key={id} />

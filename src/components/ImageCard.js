@@ -11,6 +11,7 @@ export default class ImageCard extends Component {
   componentDidMount() {
     this.imageRef.current.addEventListener('load', this.setSpans);
   }
+
   setSpans = () => {
     const height = this.imageRef.current.clientHeight;
     const spans = Math.ceil(height / 10);
