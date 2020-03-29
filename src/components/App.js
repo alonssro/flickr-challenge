@@ -5,24 +5,27 @@ import flickr from '../utils/api';
 
 export default class App extends Component {
   state = {
-    images: []
+    images: [],
+    loading: false
   };
 
   onSearchSubmit = async text => {
+    this.setState({ loading: true });
     const { data: images } = await flickr.post('/photos', {
       text
     });
     this.setState({
-      images
+      images,
+      loading: false
     });
   };
 
   render() {
-    const { images } = this.state;
+    const { images, loading } = this.state;
     return (
       <div className="ui container" style={{ marginTop: '15px' }}>
         <SearchBar onSubmit={this.onSearchSubmit} />
-        <ImageList images={images} />
+        <ImageList images={images} loading={loading} />
       </div>
     );
   }
