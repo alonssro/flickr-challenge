@@ -18,15 +18,27 @@ export default class ImageCard extends Component {
     this.setState({ spans });
   };
   render() {
-    const { farm, server, id, secret, title } = this.props;
-    const { spans } = this.state;
+    const { isSearch } = this.props;
+    let farm, server, id, secret, title, link;
+    if (isSearch) {
+      ({ farm, server, id, secret, title } = this.props);
+      const { spans } = this.state;
 
-    let url = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
+      let url = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
 
-    return (
-      <div style={{ gridRowEnd: `span ${spans}` }}>
-        <img ref={this.imageRef} src={url} alt={title} />
-      </div>
-    );
+      return (
+        <div style={{ gridRowEnd: `span ${spans}` }}>
+          <img ref={this.imageRef} src={url} alt={title} />
+        </div>
+      );
+    } else {
+      ({ id, link, title } = this.props);
+      const { spans } = this.state;
+      return (
+        <div style={{ gridRowEnd: `span ${spans}` }}>
+          <img ref={this.imageRef} src={link[1].href} alt={title} />
+        </div>
+      );
+    }
   }
 }

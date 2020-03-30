@@ -27,7 +27,7 @@ export default class SearchBar extends React.Component {
         className="ui segment basic grid"
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
-        <h2 class="ui center aligned  header">Search. Find. Explore.</h2>
+        <h2 className="ui center aligned  header">Search. Find. Explore.</h2>
         <div className="ui action input huge six wide column" style={{ display: 'flex' }}>
           <input
             type="text"
